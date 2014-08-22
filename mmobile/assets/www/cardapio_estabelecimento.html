@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+        
+		<link rel="stylesheet"  href="css/jquery.mobile.structure.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.theme.css" />
+  
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="apple-touch-icon" href="css/theme/picker/images/launch_icon_57.png" />
+	    <link rel="apple-touch-icon" sizes="72x72" href="css/theme/picker/images/launch_icon_72.png" />
+	    <link rel="apple-touch-icon" sizes="114x114" href="css/theme/picker/images/launch_icon_114.png" />
+
+	    <link rel="stylesheet" href="css/theme/picker/css/custom.css" />
+        
+        <script type="text/javascript" charset="utf-8" src="js/lib/prototype.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery.mobile-1.2.0.min.js"></script>
+        <script type="text/javascript" src="cordova-2.1.0.js"></script>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <script src="js/app/app.js"></script>
+        <script src="js/app/main.js"></script>
+        <script type="text/javascript" src="js/app/objects.js"></script>
+        
+	  	<script type="text/javascript">
+			
+	  	$(function(){
+	  		
+	  		var carrinhoCliente = new Carrinho(); 	
+			
+			$(".btnRemover").click(function(){
+	  			var id = $(this).closest('div.content_button').attr('id');
+		   		id = id.reverse().split("_")[0];
+		   		var qtdItem = parseInt($("#quantidade_"+id).val()) - 1;
+		   		(qtdItem>0)?$("#quantidade_"+id).val(qtdItem):$("#quantidade_"+id).val(0);
+		   	});
+		   	
+		   	$(".btnAdicionar").click(function(){
+		   		var id = $(this).closest('div.content_button').attr('id');
+		   		id = id.reverse().split("_")[0];
+		   		var qtdItem = parseInt($("#quantidade_"+id).val()) + 1;
+		   		(qtdItem>0)?$("#quantidade_"+id).val(qtdItem):$("#quantidade_"+id).val(0);
+		   	});
+		   	
+		   	$("a.adicionar-cart").click(function(){
+				
+		   		var idItem = $(this).closest(".item_cardapio").attr('id_item');
+		   		alert("addItem: "+idItem);
+		   		
+		   		if(!carrinhoCliente) {
+					alert('Nenhum carrinho associado');
+				}else{
+					carrinhoCliente.adicionaItem(idItem);
+					carrinhoCliente.size();
+				}
+			});
+	  	});
+        
+        </script>
+        
+</head>
+	
+<body> 
+<div data-role="page" id="cardapio"  data-add-back-btn="true" data-theme="c">
+
+	<div data-role="header">
+		<h1>Restaurant Picker </h1>
+	</div>
+	<div data-role="content">
+	
+		<div class="choice_list"> 
+			<h1> Menu </h1>
+			<div  class="carrinho_compras">
+				<a href="carrinho.html">
+					<img src="images/picker/carrinho-de-compras.png"/>
+					<span> 3 itens </span> 
+				</a>
+			</div>
+			<div class="clear"></div>						
+			<div data-role="collapsible-set">
+				<div data-role="collapsible" data-theme="d" data-content-theme="d" data-collapsed="false">
+					<h3>Loja de Conveniências</h3>
+					<p>Selecione tudo que você precisa para sua casa.</p>	
+					<ul data-role="listview" data-inset="true" >
+						<li>
+							<div class="item_cardapio" id_item='1'>
+								<div class="content_item">
+									<span class="imagem">
+										<img src="images/picker/sandwiches.jpg"/>
+									</span>
+									<span class="content_info_item">
+										<h3>Sandwiches</h3>
+										<div data-inline="true">
+											<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+											<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+											<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+											<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+										</div>
+										<div>
+											<a href="cardapio_custom.html" data-rel="dialog" data-transition="pop" data-role="button" data-icon="plus" data-inline="true">Custom</a>
+										</div>
+									</span>
+									<span class="preco">R$ 24,50 </span>
+								</div>
+								<div class="content_button" id="content_button_0">
+									<a href="#" class="btnRemover" data-role="button" data-icon="minus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									<input type="number" name="quantidade" id="quantidade_0" value="0" style="width:30px"/>
+									<a href="#" class="btnAdicionar" data-role="button" data-icon="plus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									
+									<a href="carrinho.html" class="adicionar-cart" data-icon="plus" data-inline="true">Add to cart</a>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</li>
+						<li>
+							<div class="item_cardapio" id_item='2'>
+								<div class="content_item">
+									<img src="images/picker/juice.jpg"/>
+									<div class="content_info_item">
+										<h3>Drinks</h3>
+										<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+									</div>
+								</div>
+								<span class="preco">R$ 14,50 </span>
+								<div class="content_button" id="content_button_1">
+									<a href="#" class="btnRemover" data-role="button" data-icon="minus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									<input type="number" name="quantidade" id="quantidade_1" value="0" style="width:30px"/>
+									<a href="#" class="btnAdicionar" data-role="button" data-icon="plus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									
+									<a href="carrinho.html" class="adicionar-cart" data-icon="plus" data-inline="true">Add to cart</a>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</li>
+						<li>
+							<div class="item_cardapio" id_item='3'>
+								<div class="content_item">
+									<img src="images/picker/sushis.jpg"/>
+									<div class="content_info_item">
+										<h3>Sushi Makinomoto</h3>
+										<p>hauhsduhasd adha iushdihad haoshduo ahsoud ha agsdays ash uahsu haush as as</p>
+									</div>
+								</div>
+								<span class="preco">R$ 14,50 </span>
+								<div class="content_button" id="content_button_2">
+									<a href="#" class="btnRemover" data-role="button" data-icon="minus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									<input type="number" name="quantidade" id="quantidade_2" value="0" style="width:30px"/>
+									<a href="#" class="btnAdicionar" data-role="button" data-icon="plus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									
+									<a href="carrinho.html" class="adicionar-cart" data-icon="plus" data-inline="true">Add to cart</a>
+									
+								</div>
+								<div class="clear"></div>
+							</div>
+						</li>
+						<li>
+							<div class="item_cardapio" id_item='4'>
+								<div class="content_item">
+									<img src="images/picker/burger.jpg"/>
+									<div class="content_info_item">
+										<h3>Hamburguer</h3>
+										<p>hauhsduhasd adha iushdihad haoshduo ahsoud has</p>
+										<div>
+											<a href="#popup" data-rel="dialog" data-transition="pop" data-role="button" data-icon="plus" data-inline="true">Custom</a>
+										</div>
+									</div>
+									
+								</div>
+								<span class="preco">R$ 14,50 </span>
+								<div class="content_button" id="content_button_3">
+									<a href="#" class="btnRemover" data-role="button" data-icon="minus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									<input type="number" name="quantidade" id="quantidade_3" value="0" style="width:30px"/>
+									<a href="#" class="btnAdicionar" data-role="button" data-icon="plus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									
+									<a href="carrinho.html" class="adicionar-cart" data-icon="plus" data-inline="true">Add to cart</a>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</li>
+						
+						<li>
+							<div class="item_cardapio" id_item='6'>
+								<div class="content_item">
+									<img src="images/picker/cerveja1.jpg"/>
+									<div class="content_info_item">
+										<h3>Cervejas</h3>
+										<p>hauhsduhasd adha iushdihad haoshduo</p>
+										
+									</div>
+									<span class="preco">R$ 14,50 </span>
+								</div>
+								<div class="content_button" id="content_button_4">
+									<a href="#" class="btnRemover" data-role="button" data-icon="minus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+									<input type="number" name="quantidade" id="quantidade_4" value="0" style="width:30px"/>
+									<a href="#" class="btnAdicionar" data-role="button" data-icon="plus" data-iconpos="notext" data-mini="false" data-inline="true"data-theme="c" ></a>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</li>
+						
+					</ul>	
+				</div>
+			</div>
+			<div data-role="collapsible-set"  data-theme="d" data-content-theme="d" data-collapsed="false">
+				<div data-role="collapsible">
+					<h3>Tabacaria</h3>
+					<p>Choice your cigarret.</p>
+				</div>
+			</div>	
+			<div data-role="collapsible-set"  data-theme="d" data-content-theme="d" data-collapsed="false">
+				<div data-role="collapsible">
+					<h3>Drinks</h3>
+					<p>Monte seus combos e selecione as bebidas de sua preferência.</p>
+				</div>
+								
+			</div>
+		</div>
+		<div data-role="controlgroup" data-type="horizontal" class="confirm_compras">
+			<a href="carrinho.html" data-role="button" data-icon="plus" data-theme="b"  id="btnConfirmar">Confirmar</a>
+			<a href="carrinho.html" data-role="button" data-icon="delete" id="btnCancelar">Cancelar</a>
+		</div>
+		
+	</div>
+	
+
+</div><!-- /page -->
+
+
+</body>
+</html>

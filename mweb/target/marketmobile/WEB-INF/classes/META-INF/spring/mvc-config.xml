@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- Configures support for @Controllers -->
+	<mvc:annotation-driven />
+	
+	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
+	</mvc:interceptors>
+
+	<mvc:resources mapping="/static/**" location="/" />
+
+	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<!-- 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 		one of the properties available; the maximum file size in bytes 
+ 		<property name="maxUploadSize" value="-1" />
+ 	</bean>
+	 -->
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource">
+		<property name="basenames" value="WEB-INF/i18n/messages,WEB-INF/i18n/application"/>
+		<property name="fallbackToSystemLocale" value="false"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<!-- store preferred language configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver" id="localeResolver" p:cookieName="locale"/>
+
+	
+	<!-- selects a static view for rendering without the need for an explicit controller -->
+	<mvc:view-controller path="/resourceNotFound"/>
+	<mvc:view-controller path="/uncaughtException"/>
+	<mvc:view-controller path="/index"/>
+	<mvc:view-controller path="/.jsp" view-name="index"/>
+	<mvc:view-controller path="/index.jsp" view-name="index"/>
+	<mvc:view-controller path="/login"/>
+	<mvc:view-controller path="/accessDenied"/>
+		
+	<!-- This bean resolves specific types of exceptions to corresponding logical - view names for error views. 
+	     The default behaviour of DispatcherServlet - is to propagate all exceptions to the servlet container: 
+	     this will happen - here with all other types of exceptions. -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
+		<property name="exceptionMappings">
+			<props>
+				<prop key=".DataAccessException">dataAccessFailure</prop>
+				<prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
+				<prop key=".TypeMismatchException">dataAccessFailure</prop>
+				<prop key=".MissingServletRequestParameterException">dataAccessFailure</prop>
+				<prop key=".AccessDeniedException">accessDenied</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+</beans>

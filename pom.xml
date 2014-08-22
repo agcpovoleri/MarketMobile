@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>marketmobile</artifactId>
+	<groupId>com.market</groupId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- Módulos -->
+	<modules>
+		<module>mweb</module>
+		<module>mcore</module>
+		<!-- <module>mmobile</module> -->
+	</modules>
+
+	<dependencies>
+		
+		<!-- Test -->
+		<dependency>
+			<groupId>org.junit</groupId>
+			<artifactId>com.springsource.org.junit</artifactId>
+			<scope>test</scope>
+			<version>${org.junit.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.beanutils</artifactId>
+			<version>${org.apache.commons.beanutils.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
+			<version>${org.apache.commons.lang.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.codec</artifactId>
+			<version>${org.apache.commons.codec.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.configuration</artifactId>
+			<version>${org.apache.commons.configuration.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+
+		<repository>
+			<id>snapshots</id>
+			<name>Snapshots</name>
+			<!-- <url>http://teccomti.com.br:8081/nexus/content/repositories/snapshots</url> -->
+			<url>http://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</repository>
+		<repository>
+			<id>release</id>
+			<name>release</name>
+			<!-- <url>http://teccomti.com.br:8081/nexus/content/repositories/release</url> -->
+			<url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+		</repository>
+
+		<repository>
+			<id>
+			com.springsource.repository.bundles.release
+	    </id>
+			<name>
+			SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases
+	    </name>
+			<url>
+			http://repository.springsource.com/maven/bundles/release
+	    </url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<org.springframework.version>3.2.0.RELEASE</org.springframework.version>
+		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<tiles.version>3.0.3</tiles.version>
+		<commons.httpclient.version>3.1</commons.httpclient.version>
+		<org.slf4j.version>1.7.7</org.slf4j.version>
+		<org.apache.log4j.version>1.2.16</org.apache.log4j.version>
+		<org.junit.version>4.8.1</org.junit.version>
+		<org.apache.commons.beanutils.version>1.8.0</org.apache.commons.beanutils.version>
+		<org.apache.commons.lang.version>2.4.0</org.apache.commons.lang.version>
+		<org.apache.commons.codec.version>1.4.0</org.apache.commons.codec.version>
+		<org.apache.commons.configuration.version>1.5.0</org.apache.commons.configuration.version>
+
+	</properties>
+
+
+</project>

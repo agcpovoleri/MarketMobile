@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+        
+		<link rel="stylesheet"  href="css/jquery.mobile.structure.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.theme.css" />
+  
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="apple-touch-icon" href="css/theme/picker/images/launch_icon_57.png" />
+	    <link rel="apple-touch-icon" sizes="72x72" href="css/theme/picker/images/launch_icon_72.png" />
+	    <link rel="apple-touch-icon" sizes="114x114" href="css/theme/picker/images/launch_icon_114.png" />
+
+	    <link rel="stylesheet" href="css/theme/picker/css/custom.css" />
+        
+        <script type="text/javascript" charset="utf-8" src="js/lib/prototype.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery.mobile-1.2.0.min.js"></script>
+        
+        <script type="text/javascript" src="cordova-2.1.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/app/objects.js"></script>
+        
+        <script src="js/app/app.js"></script>
+ 		<script src="js/app/bootstrap.js"></script>
+	  	<script type="text/javascript">
+				var userAgent = navigator.userAgent + '';
+				if (userAgent.indexOf('iPhone') > -1) {
+					document
+							.write('<script src="js/lib/cordova-iphone.js"></sc' + 'ript>');
+					var mobile_system = 'iphone';
+				} else if (userAgent.indexOf('Android') > -1) {
+					document
+							.write('<script src="js/lib/cordova-android.js"></sc' + 'ript>');
+					var mobile_system = 'android';
+				} else {
+					var mobile_system = '';
+				}
+		</script>
+        <script type="text/javascript">
+            
+        	$(function(){
+        		/**
+				 * Atribui o click no item da lista
+				 */
+        		$("ul#listEstabelecimentos a").live('click',function(){
+        			alert('Buscando informacoes da empresa selecionada: '+$(this).attr('ide'));
+        			empresaCurrent = new Empresa($(this).attr('ide'));
+        			//alert('getCardapio: '+ empresaCurrent);
+        		});    
+        
+        	})
+        </script>
+    </head>
+<body> 
+<div id="choice_estabelecimento" data-role="page" data-add-back-btn="true">
+	
+	<div data-role="header"> 
+		<h1> Restaurant Picker</h1>
+	</div> 
+
+	<div data-role="content">
+	
+		<div class="choice_list"> 
+			<!-- 
+			<h1> Please choose a supermarket.</h1>
+			 -->
+			<h1> Selecione um estabelecimento.</h1>
+			
+			<ul data-role="listview" data-inset="true" id="listEstabelecimentos" >
+				<li><a href="detalhe_estabelecimento.html" ide='1' data-transition="slidedown"> <img src="images/picker/restau01_mini.jpg"/> <h2> Bife de Griff</h2> <p class="classement four"> 4 stars  </p></a></li>
+				<li><a href="detalhe_estabelecimento.html" ide='2' data-transition="slidedown"> <img src="images/picker/restau02_mini.jpg"/> <h2> Digão  </h2> <p class="classement four"> 4 stars  </p> </a></li>
+				<li><a href="detalhe_estabelecimento.html" ide='3' data-transition="slidedown"> <img src="images/picker/restau03_mini.jpg"/> <h2> Pizza Online</h2> <p class="classement one"> 1 star  </p> </a></li>
+				<li><a href="detalhe_estabelecimento.html" ide='4' data-transition="slidedown"> <img src="images/picker/restau04_mini.jpg"/> <h2> Vende tudo</h2> <p class="classement three"> 3 stars  </p> </a></li>
+				<li><a href="detalhe_estabelecimento.html" ide='5' data-transition="slidedown"> <img src="images/picker/restau05_mini.jpg"/> <h2> Arcade </h2> <p class="classement two"> 2 stars </p> </a></li>
+			</ul>	
+		
+		</div>
+	</div>
+
+</div><!-- /page -->
+</body>
+</html>

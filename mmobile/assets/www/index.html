@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<title>Hello World</title>
+
+<link rel="stylesheet" href="css/jquery.mobile.structure.css" />
+<link rel="stylesheet" href="css/jquery.mobile.theme.css" />
+
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="apple-touch-icon"
+	href="css/theme/picker/images/launch_icon_57.png" />
+<link rel="apple-touch-icon" sizes="72x72"
+	href="css/theme/picker/images/launch_icon_72.png" />
+<link rel="apple-touch-icon" sizes="114x114"
+	href="css/theme/picker/images/launch_icon_114.png" />
+
+<link rel="stylesheet" href="css/theme/picker/css/custom.css" />
+
+<script type="text/javascript" charset="utf-8"
+	src="js/lib/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="js/lib/jquery.mobile-1.2.0.min.js"></script>
+<script type="text/javascript" src="cordova-2.1.0.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<script src="js/app/app.js"></script>
+<script src="js/app/main.js"></script>
+<script src="js/lib/json2.js"></script>
+
+<!-- <script src="js/app/bootstrap.js"></script> -->
+<script type="text/javascript">
+				var userAgent = navigator.userAgent + '';
+				if (userAgent.indexOf('iPhone') > -1) {
+					document
+							.write('<script src="js/lib/cordova-iphone.js"></sc' + 'ript>');
+					var mobile_system = 'iphone';
+				} else if (userAgent.indexOf('Android') > -1) {
+					document
+							.write('<script src="js/lib/cordova-android.js"></sc' + 'ript>');
+					var mobile_system = 'android';
+				} else {
+					var mobile_system = '';
+				}
+		</script>
+<script type="text/javascript">
+            
+        	app.initialize(mobile_system);
+            
+             // Wait for Cordova to load
+            //
+            document.addEventListener("deviceready", onDeviceReady, false);
+            // Cordova is ready
+            //
+            function onDeviceReady() {
+            	
+            	
+            	
+            }
+        </script>
+</head>
+<body>
+	<div data-role="page" id="choice_city">
+		<div id="branding">
+			<h1>Restaurant Picker</h1>
+		</div>
+		<div data-role="content">
+			<!-- 
+				<div class="content-comment"> 
+					<label for="txtcep">CEP:</label>
+	   				<input type="text" name="cep" id="txtcep" value=""  />
+				</div>	
+				 -->
+			<div class="choice_list">
+				<h1>Em qual cidade voce deseja comprar?</h1>
+
+				<div class="mobile-buttons">
+					<form id="store-locator-form" method="get" action="mobile/results/">
+
+						<ul data-inset="true" data-role="listview">
+
+							<li class="get-current-location" data-theme="c"><a
+								class="geolocation-link" href="#">Use Current Location</a></li>
+							<li
+								class="enter-location ui-li ui-li-static ui-body-c ui-corner-bottom">
+								<input type="text" value="Enter Zip or City, State"
+								class="label-input" name="origin">
+							</li>
+
+						</ul>
+
+						<div class="find-arbys-location">
+							<a href="estabelecimentos.html" id="btnSearch" data-transition="pop"
+								data-role="button" data-icon="search" data-inline="true">Search</a>
+						</div>
+					</form>
+				</div>
+				<!-- 
+					<ul data-role="listview" data-inset="true" data-filter="true" id="listCities"  >
+						<li><a href="estabelecimentos.html"  data-transition="slidedown"> Juiz de Fora <span class="ui-li-count" > 4 </span></a> </li>
+						<li><a href="estabelecimentos.html"  data-transition="slidedown"> São Paulo <span class="ui-li-count" > 2 </span></a> </li>
+						<li><a href="estabelecimentos.html"  data-transition="slidedown"> Rio de Janeiro <span class="ui-li-count" > 5 </span></a> </li>
+						<li><a href="estabelecimentos.html"  data-transition="slidedown"> Vitória <span class="ui-li-count" > 10</span></a> </li>
+					</ul>
+					 -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

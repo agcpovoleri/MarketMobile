@@ -1,0 +1,13 @@
+<Context>
+
+  <Resource name="jdbc/marketmobile" 
+      		auth="Container" 
+      		type="javax.sql.DataSource"
+      		initialSize="1" 
+      		maxActive="10" maxIdle="9" maxWait="180000"
+            username="marketmobile" password="123456" driverClassName="org.postgresql.Driver"
+            url="jdbc:postgresql:marketmobile" removeAbandoned="true"
+ 			removeAbandonedTimeout="300" logAbandoned="true" validationQuery="select now()"/>
+
+</Context>
+

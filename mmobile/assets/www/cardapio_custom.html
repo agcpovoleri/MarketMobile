@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+        
+		<link rel="stylesheet"  href="css/jquery.mobile.structure.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.theme.css" />
+  
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="apple-touch-icon" href="css/theme/picker/images/launch_icon_57.png" />
+	    <link rel="apple-touch-icon" sizes="72x72" href="css/theme/picker/images/launch_icon_72.png" />
+	    <link rel="apple-touch-icon" sizes="114x114" href="css/theme/picker/images/launch_icon_114.png" />
+
+	    <link rel="stylesheet" href="css/theme/picker/css/custom.css" />
+        
+        <script type="text/javascript" charset="utf-8" src="js/lib/prototype.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/jquery.mobile-1.2.0.min.js"></script>
+        <script type="text/javascript" src="cordova-2.1.0.js"></script>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <script src="js/app/app.js"></script>
+        <script src="js/app/main.js"></script>
+        <script type="text/javascript" src="js/app/objects.js"></script>
+        
+	  	<script type="text/javascript">
+			
+	  	$(function(){
+	  		
+	  		var carrinhoCliente = new Carrinho(); 	
+			
+			$(".btnCancelar").click(function(){
+	  			var id = $(this).closest('div.content_button').attr('id');
+		   		id = id.reverse().split("_")[0];
+		   		var qtdItem = parseInt($("#quantidade_"+id).val()) - 1;
+		   		(qtdItem>0)?$("#quantidade_"+id).val(qtdItem):$("#quantidade_"+id).val(0);
+		   	});
+		   	
+		   	$(".btnConfirmar").click(function(){
+		   		
+		   		if(!carrinhoCliente) {
+					alert('Nenhum carrinho associado');
+				}else{
+					carrinhoCliente.adicionaItemCustomizado(idItem);
+					carrinhoCliente.size();
+				}
+		   	});
+		   	
+		   	$("a.adicionar-cart").click(function(){
+				
+		   		var idItem = $(this).closest(".item_cardapio").attr('id_item');
+		   		alert("addItem: "+idItem);
+		   		
+		   		if(!carrinhoCliente) {
+					alert('Nenhum carrinho associado');
+				}else{
+					carrinhoCliente.adicionaItem(idItem);
+					carrinhoCliente.size();
+				}
+			});
+	  	});
+        
+        </script>
+        
+</head>
+	
+<body> 
+<div data-role="page" id="popup" data-overlay-theme="a" data-theme="c" class="ui-corner-all">
+	<div data-role="header" data-theme="a" class="ui-corner-top">
+		<h1>Delete Page?</h1>
+	</div>
+	<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+		<h3 class="ui-title">Selecione os componentes que deseja adicionar ao item?</h3>
+		<p>Após a seleção, o item será adicionado ao carrinho</p>
+		<form action="#" method="get">
+			<div>
+				<div data-role="fieldcontain">
+					<label for="slider1" style="width:100%">Dobro de queijo:</label>
+					<select name="slider1" id="slider1" data-role="slider">
+						<option value="off">Off</option>
+						<option value="on">On</option>
+					</select>
+				</div>
+				
+				<div data-role="fieldcontain">
+					<label for="slider2" style="width:100%">Dobro de batata:</label>
+					<select name="slider2" id="slider2" data-role="slider">
+						<option value="off">Off</option>
+						<option value="on">On</option>
+					</select>
+				</div>
+				
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup" class="form-item" >
+						<legend>Choose as many snacks as you'd like:</legend>
+						
+						<input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom" />
+						<label for="checkbox-1a">Arroz</label>
+		
+						<input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom" />
+						<label for="checkbox-2a">Feijão</label>
+		
+						<input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom" />
+						<label for="checkbox-3a">Salada</label>
+															
+						<input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" />
+						<label for="checkbox-4a">Sun Chips</label>
+						
+						<input type="checkbox" name="checkbox-3a" id="checkbox-5a" class="custom" />
+						<label for="checkbox-5a">Quiabo</label>
+						
+						<input type="checkbox" name="checkbox-3a" id="checkbox-6a" class="custom" />
+						<label for="checkbox-6a">Couve-flor</label>
+						
+						<input type="checkbox" name="checkbox-3a" id="checkbox-7a" class="custom" />
+						<label for="checkbox-7a">Bife</label>
+				    </fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				    <fieldset data-role="controlgroup" class="form-item" >
+				    	<legend>Tipo de queijo:</legend>
+				         	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+				         	<label for="radio-choice-1">Prato</label>
+	
+				         	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+				         	<label for="radio-choice-2">Cheddar</label>
+	
+				         	<input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"  />
+				         	<label for="radio-choice-3">Suíço</label>
+	
+				    </fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup" class="form-item" >
+						<legend>Selecione os molhos que voce deseja:</legend>
+						
+						<input type="checkbox" name="checkbox-21a" id="checkbox-21a" class="custom" />
+						<label for="checkbox-21a">Mostarda</label>
+		
+						<input type="checkbox" name="checkbox-22a" id="checkbox-22a" class="custom" />
+						<label for="checkbox-22a">Catchup</label>
+		
+						<input type="checkbox" name="checkbox-23a" id="checkbox-23a" class="custom" />
+						<label for="checkbox-23a">Maionese tradicional</label>
+															
+						<input type="checkbox" name="checkbox-24a" id="checkbox-24a" class="custom" />
+						<label for="checkbox-24a">Maionese Caseira</label>
+						
+				    </fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				    <fieldset data-role="controlgroup" class="form-item" >
+				    	<legend>Choose a beef:</legend>
+				         	<input type="radio" name="radio-choice-31" id="radio-choice-31" value="choice-1" checked="checked" />
+				         	<label for="radio-choice-31">Frango</label>
+	
+				         	<input type="radio" name="radio-choice-31" id="radio-choice-32" value="choice-2"  />
+				         	<label for="radio-choice-32">Boi</label>
+	
+				         	<input type="radio" name="radio-choice-31" id="radio-choice-33" value="choice-3"  />
+				         	<label for="radio-choice-33">Porco</label>
+	
+				         	<input type="radio" name="radio-choice-31" id="radio-choice-34" value="choice-4"  />
+				         	<label for="radio-choice-34">Carneiro</label>
+				    </fieldset>
+				</div>
+			</div>
+			
+			
+			<div data-role="controlgroup" data-type="horizontal" class="confirm_compras">
+				<a href="carrinho.html" id="btnConfirmar" data-role="button"  data-rel="back" data-icon="plus" data-theme="b" >Confirmar</a>
+				<a href="carrinho.html" id="btnCancelar" data-role="button"  data-rel="back" data-icon="delete"  >Cancelar</a>
+			</div>
+			
+		</form>  
+	</div>
+</div>
+
+</body>
+</html>
