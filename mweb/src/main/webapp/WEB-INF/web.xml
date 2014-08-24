@@ -7,6 +7,12 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/spring/application-context.xml</param-value>
     </context-param> 
+    
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/log4j.properties</param-value>
+    </context-param>
+    
 
     <context-param>
 	    <param-name>webAppRootKey</param-name>
@@ -58,20 +64,19 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	    
     <error-page>
 		<error-code>404</error-code>
 		<location>/resourceNotFound</location>
 	</error-page>
-	
-	<listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>	
-    
+
     <listener>
     	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	
+	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
  	<listener>
     	<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>

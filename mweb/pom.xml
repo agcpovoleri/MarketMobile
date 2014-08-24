@@ -15,14 +15,10 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.web</artifactId>
+			<artifactId>spring-web</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.web.servlet</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>com.springsource.javax.transaction</artifactId>
@@ -39,42 +35,7 @@
 			<artifactId>com.springsource.org.apache.commons.logging</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.aop</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.beans</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.context</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.core</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.jdbc</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.transaction</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.orm</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-
+		
 		<!-- Hibernate framework -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -84,7 +45,6 @@
 				<exclusion>
 					<groupId> org.slf4j</groupId>
 					<artifactId>com.springsource.slf4j.api</artifactId>
-
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -198,14 +158,12 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>c</artifactId>
 			<version>1.1.2</version>
 			<type>tld</type>
 		</dependency>
-
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>fmt</artifactId>
@@ -244,7 +202,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.market</groupId>
