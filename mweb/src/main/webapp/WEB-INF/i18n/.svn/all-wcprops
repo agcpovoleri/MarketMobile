@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/gestao-viva/!svn/ver/2/trunk/fonte/web/src/main/webapp/WEB-INF/i18n
+END
+messages.properties
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gestao-viva/!svn/ver/2/trunk/fonte/web/src/main/webapp/WEB-INF/i18n/messages.properties
+END
+messages_pt_BR.properties
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gestao-viva/!svn/ver/2/trunk/fonte/web/src/main/webapp/WEB-INF/i18n/messages_pt_BR.properties
+END
+application.properties
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gestao-viva/!svn/ver/2/trunk/fonte/web/src/main/webapp/WEB-INF/i18n/application.properties
+END
