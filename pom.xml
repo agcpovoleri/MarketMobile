@@ -85,9 +85,9 @@
 
 	<properties>
 		<org.springframework.version>3.2.8.RELEASE</org.springframework.version>
-		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<spring.aop.version>3.2.8.RELEASE</spring.aop.version>
-		
+
 		<tiles.version>3.0.3</tiles.version>
 		<commons.httpclient.version>3.1</commons.httpclient.version>
 		<org.slf4j.version>1.7.7</org.slf4j.version>

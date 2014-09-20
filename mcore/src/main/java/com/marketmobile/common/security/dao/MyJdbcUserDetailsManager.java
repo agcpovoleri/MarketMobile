@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
@@ -22,42 +22,33 @@ import org.springframework.util.Assert;
 import com.marketmobile.common.security.entity.dao.MyUser;
 
 public class MyJdbcUserDetailsManager extends JdbcUserDetailsManager {
-	// UserDetailsManager SQL
-    public static final String DEF_CREATE_USER_SQL =
-            "insert into tb_usuario (login, senha, fl_ativo) values (?,?,?)";
+	public static final String DEF_CREATE_USER_SQL =
+            "INSERT INTO usuario_login" +
+            		"(id, login, email, senha, first_access, last_access, is_ativo)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String DEF_DELETE_USER_SQL =
-            "delete from tb_usuario where login = ?";
+            "DELETE FROM usuario_login WHERE login = ?";
     public static final String DEF_UPDATE_USER_SQL =
-            "update tb_usuario set senha = ?, fl_ativo = ? where login = ?";
+            "UPDATE usuario_login SET senha = ?, is_ativo = ? WHERE login = ?";
     public static final String DEF_USER_EXISTS_SQL =
-    		"select login from tb_usuario where login = ?";
+    		"SELECT login FROM usuario_login WHERE login = ?";
     public static final String DEF_CHANGE_PASSWORD_SQL =
-        	"update tb_usuario set senha = ? where login = ?";
-    public static final String DEF_ACTIVATE_USER = "update tb_usuario set fl_ativo = true where login = ?";
+        	"UPDATE usuario_login SET senha = ? WHERE login = ?";
+    public static final String DEF_ACTIVATE_USER = 
+    		"UPDATE usuario_login SET is_ativo = true WHERE login = ?";
     
     public static final String DEF_USERS_BY_USERNAME_QUERY =
-        	"select login,senha,fl_ativo " +
-        	"from tb_usuario " +
-        	"where login = ?";
+        	"SELECT login, senha, is_ativo, id_usuario " +
+        	"FROM usuario_login " +
+        	"WHERE login = ?";
     public static final String DEF_ALL_USERS_QUERY =
-    		"select login,senha,fl_ativo " +
-    		"from tb_usuario ";
+    		"SELECT login, senha, is_ativo, id_usuario " +
+    		"FROM usuario_login ";
 
     public static final String DEF_INSERT_AUTHORITY_SQL =
-            "insert into tb_autorizacoes_usuario (login, autorizacao) values (?,?)";
+            "INSERT INTO usuario_autorizacao (id_usuario, id_autorizacao) values (?,?)";
     public static final String DEF_DELETE_USER_AUTHORITIES_SQL =
-            "delete from tb_autorizacoes_usuario where login = ?";
-
-    public static final String DEF_AUTHORITIES_BY_USERNAME_QUERY =
-	        "select login,autorizacao " +
-	        "from tb_autorizacoes_usuario " +
-	        "where login = ?";
-    public static final String DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY =
-	        "select g.id, g.group_name, ga.authority " +
-	        "from groups g, group_members gm, group_authorities ga " +
-	        "where gm.username = ? " +
-	        "and g.id = ga.group_id " +
-	        "and g.id = gm.group_id";
+            "DELETE FROM usuario_autorizacao where id_usuario = ?";
 
 
     public String createUserSql = DEF_CREATE_USER_SQL;
@@ -134,7 +125,7 @@ public class MyJdbcUserDetailsManager extends JdbcUserDetailsManager {
 
     public void createUser(final UserDetails user) {
         validateUserDetails(user);
-        String newPassword = passwordEncoder.encodePassword(user.getPassword(), null);
+        String newPassword = passwordEncoder.encode(user.getPassword());
     	((MyUser)user).setPassword(newPassword);
 
         getJdbcTemplate().update(getCreateUserSql(), new PreparedStatementSetter() {
@@ -158,7 +149,7 @@ public class MyJdbcUserDetailsManager extends JdbcUserDetailsManager {
     }
 
     protected void addCustomAuthorities(String username, List<GrantedAuthority> authorities) {
-    	GrantedAuthorityImpl roleUser = new GrantedAuthorityImpl("ROLE_USER");
+    	SimpleGrantedAuthority roleUser = new SimpleGrantedAuthority("ROLE_USER");
     	authorities.add(roleUser);
     }
 
@@ -173,7 +164,7 @@ public class MyJdbcUserDetailsManager extends JdbcUserDetailsManager {
         	((MyUser)user).setPassword(oldPasswordEncript);
         }
         if (!oldPasswordEncript.equals(user.getPassword())) {
-        	String newPassword = passwordEncoder.encodePassword(user.getPassword(), null);
+        	String newPassword = passwordEncoder.encode(user.getPassword());
         	((MyUser)user).setPassword(newPassword);
         }
 
@@ -203,7 +194,7 @@ public class MyJdbcUserDetailsManager extends JdbcUserDetailsManager {
     }
 
     public void changePassword(String oldPassword, String newPassword) throws AuthenticationException {
-    	newPassword = passwordEncoder.encodePassword(newPassword, null);
+    	newPassword = passwordEncoder.encode(newPassword);
 
     	super.changePassword(oldPassword, newPassword);
 

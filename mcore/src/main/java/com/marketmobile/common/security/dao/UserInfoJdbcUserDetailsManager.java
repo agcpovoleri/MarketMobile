@@ -8,55 +8,60 @@ import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.util.Assert;
 
 import com.marketmobile.common.security.entity.dao.MyUser;
 
 public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
-	// UserDetailsManager SQL
-    public static final String DEF_CREATE_USER_SQL =
-            "insert into tb_usuario (login, senha, fl_ativo,id_cliente) values (?,?,?,?)";
+	public static final String DEF_CREATE_USER_SQL =
+            "INSERT INTO usuario_login" +
+            		"(id, login, email, senha, first_access, last_access, is_ativo)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String DEF_DELETE_USER_SQL =
-            "delete from tb_usuario where login = ?";
+            "DELETE FROM usuario_login WHERE login = ?";
     public static final String DEF_UPDATE_USER_SQL =
-            "update tb_usuario set senha = ?, fl_ativo = ? where login = ?";
+            "UPDATE usuario_login SET senha = ?, is_ativo = ? WHERE login = ?";
     public static final String DEF_USER_EXISTS_SQL =
-    		"select login from tb_usuario where login = ?";
+    		"SELECT login FROM usuario_login WHERE login = ?";
     public static final String DEF_CHANGE_PASSWORD_SQL =
-        	"update tb_usuario set senha = ? where login = ?";
-    public static final String DEF_ACTIVATE_USER = "update tb_usuario set fl_ativo = true where login = ?";
+        	"UPDATE usuario_login SET senha = ? WHERE login = ?";
+    public static final String DEF_ACTIVATE_USER = 
+    		"UPDATE usuario_login SET is_ativo = true WHERE login = ?";
     
     public static final String DEF_USERS_BY_USERNAME_QUERY =
-        	"select login,senha,fl_ativo, id_cliente " +
-        	"from tb_usuario " +
-        	"where login = ?";
+        	"SELECT login, senha, is_ativo, id_usuario " +
+        	"FROM usuario_login " +
+        	"WHERE login = ?";
     public static final String DEF_ALL_USERS_QUERY =
-    		"select login,senha,fl_ativo, id_cliente " +
-    		"from tb_usuario ";
+    		"SELECT login, senha, is_ativo, id_usuario " +
+    		"FROM usuario_login ";
 
     public static final String DEF_INSERT_AUTHORITY_SQL =
-            "insert into tb_autorizacoes_usuario (login, autorizacao) values (?,?)";
+            "INSERT INTO usuario_autorizacao (id_usuario_login, id_autorizacao) values (?,?)";
     public static final String DEF_DELETE_USER_AUTHORITIES_SQL =
-            "delete from tb_autorizacoes_usuario where login = ?";
+            "DELETE FROM usuario_autorizacao WHERE id_usuario_login = ?";
 
     public static final String DEF_AUTHORITIES_BY_USERNAME_QUERY =
-	        "select login,autorizacao " +
-	        "from tb_autorizacoes_usuario " +
-	        "where login = ?";
-    public static final String DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY =
-	        "select g.id, g.group_name, ga.authority " +
-	        "from groups g, group_members gm, group_authorities ga " +
-	        "where gm.username = ? " +
-	        "and g.id = ga.group_id " +
-	        "and g.id = gm.group_id";
+    		"SELECT ul.login, a.nome FROM usuario_login_autorizacao ua "+
+    		" LEFT JOIN usuario_login ul ON ua.id_usuario_login = ul.id "+
+    		" LEFT JOIN autorizacao a ON ua.id_autorizacao = a.id "+
+	        " WHERE ul.login = ?";
+    
+//    public static final String DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY =
+//	        "select g.id, g.group_name, ga.authority " +
+//	        "from groups g, group_members gm, group_authorities ga " +
+//	        "where gm.username = ? " +
+//	        "and g.id = ga.group_id " +
+//	        "and g.id = gm.group_id";
 
 
     public String createUserSql = DEF_CREATE_USER_SQL;
@@ -65,7 +70,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
     public String deleteUserAuthoritiesSql = DEF_DELETE_USER_AUTHORITIES_SQL;
 
     //private String authoritiesByUsernameQuery = DEF_AUTHORITIES_BY_USERNAME_QUERY;;
-    public String groupAuthoritiesByUsernameQuery = DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY;
+    //public String groupAuthoritiesByUsernameQuery = DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY;
     public String usersByUsernameQuery = DEF_USERS_BY_USERNAME_QUERY;
     public String allUsersQuery = DEF_ALL_USERS_QUERY;
 
@@ -97,7 +102,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
                 String password = rs.getString(2);
                 boolean enabled = rs.getBoolean(3);
                 int idCliente = rs.getInt(4);
-                return new MyUser(username, password, enabled,idCliente, true, true, true, AuthorityUtils.NO_AUTHORITIES);
+                return new MyUser(username, password, enabled, idCliente, true, true, true, AuthorityUtils.NO_AUTHORITIES);
             }
         });
     }
@@ -135,7 +140,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
 
     public void createUser(final UserDetails user) {
         validateUserDetails(user);
-        String newPassword = passwordEncoder.encodePassword(user.getPassword(), null);
+        String newPassword = passwordEncoder.encode(user.getPassword());
     	((MyUser)user).setPassword(newPassword);
 
         getJdbcTemplate().update(getCreateUserSql(), new PreparedStatementSetter() {
@@ -159,7 +164,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
     }
 
     protected void addCustomAuthorities(String username, List<GrantedAuthority> authorities) {
-    	GrantedAuthorityImpl roleUser = new GrantedAuthorityImpl("ROLE_USER");
+    	SimpleGrantedAuthority roleUser = new SimpleGrantedAuthority("ROLE_USER");
     	authorities.add(roleUser);
     }
 
@@ -174,7 +179,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
         	((MyUser)user).setPassword(oldPasswordEncript);
         }
         if (!oldPasswordEncript.equals(user.getPassword())) {
-        	String newPassword = passwordEncoder.encodePassword(user.getPassword(), null);
+        	String newPassword = passwordEncoder.encode(user.getPassword());
         	((MyUser)user).setPassword(newPassword);
         }
 
@@ -204,7 +209,7 @@ public class UserInfoJdbcUserDetailsManager extends MyJdbcUserDetailsManager {
     }
 
     public void changePassword(String oldPassword, String newPassword) throws AuthenticationException {
-    	newPassword = passwordEncoder.encodePassword(newPassword, null);
+    	newPassword = passwordEncoder.encode(newPassword);
 
     	super.changePassword(oldPassword, newPassword);
 
