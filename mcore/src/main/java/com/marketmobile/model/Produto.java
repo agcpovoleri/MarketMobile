@@ -1,8 +1,7 @@
 package com.marketmobile.model;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,36 +10,48 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "produto")
-@SequenceGenerator( name = "id_produto_seq", initialValue = 1, sequenceName = "produto_id_seq")
+@SequenceGenerator( name = "id_produto_seq", initialValue = 1 , allocationSize=1, sequenceName = "produto_id_seq")
 public class Produto implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "id_produto_seq", strategy = GenerationType.SEQUENCE)
 	@Column(name = "id")
 	private Long id;
+		
+	@Column(name = "codigo")
+	private String sku;
 	
 	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "codigo")
-	private String codigo;
+	@Column(name = "descricao")
+	private String descricao;
+	
+	@Column(name = "validade")
+	private Date validade;
+		
+	@Column(name = "rating")
+	private Integer rating;
 
-	@Column(name = "id_categoria")
-	private Long idCategoria;
-	
-	@Transient
-	private Categoria categoria;
-	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
 	}
 
 	public String getNome() {
@@ -51,38 +62,35 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	
-	public Long getIdCategoria() {
-		return idCategoria;
+	public Date getValidade() {
+		return validade;
 	}
 
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setValidade(Date validade) {
+		this.validade = validade;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Integer getRating() {
+		return rating;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", idCategoria="
-				+ idCategoria + ", codigo=" + codigo + ", categoria="
-				+ categoria + "]";
+		return "Produto [id=" + id + ", sku=" + sku + ", nome=" + nome
+				+ ", descricao=" + descricao + ", validade=" + validade
+				+ ", rating=" + rating + "]";
 	}
-
-	
 	
 }

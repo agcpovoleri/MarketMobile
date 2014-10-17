@@ -1,7 +1,6 @@
 package com.marketmobile.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +15,8 @@ import javax.persistence.Transient;
 @Table(name = "estado")
 @SequenceGenerator( name = "id_estado_seq", initialValue = 1, sequenceName = "estado_id_seq", allocationSize = 1)
 public class Estado implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "id_estado_seq", strategy = GenerationType.SEQUENCE)

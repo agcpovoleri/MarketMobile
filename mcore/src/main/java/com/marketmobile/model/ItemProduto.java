@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 @SequenceGenerator( name = "id_item_produto_seq", initialValue = 1, sequenceName = "item_produto_id_seq")
 public class ItemProduto implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator = "id_item_produto_seq", strategy = GenerationType.SEQUENCE)
 	@Column(name = "id")

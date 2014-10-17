@@ -1,7 +1,6 @@
 package com.marketmobile.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "pais")
 @SequenceGenerator( name = "id_pais_seq", initialValue = 1, sequenceName = "pais_id_seq", allocationSize = 1)
 public class Pais implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "id_pais_seq", strategy = GenerationType.SEQUENCE)

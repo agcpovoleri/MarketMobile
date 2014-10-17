@@ -1,6 +1,8 @@
 package com.marketmobile.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "estoque")
@@ -26,19 +28,18 @@ public class Estoque implements Serializable{
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "id_produto")
-	private Long idProduto;
-
-	@Column(name = "quantidade")
-	private Integer quantidade;
+	@Column(name = "descricao")
+	private String descricao;
 	
-	@Transient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_empresa")
 	private Empresa empresa;
 	
-	@Transient
-	private Produto produto;
+	@Column(name = "data_atualizacao")
+	private Date dataAtualizacao;
+	
+	@OneToMany(mappedBy="estoque", fetch = FetchType.LAZY)
+    private Set<Item> items;
 
 	public Long getId() {
 		return id;
@@ -46,14 +47,6 @@ public class Estoque implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getIdProduto() {
-		return idProduto;
-	}
-
-	public void setIdProduto(Long idProduto) {
-		this.idProduto = idProduto;
 	}
 
 	public Empresa getEmpresa() {
@@ -64,26 +57,37 @@ public class Estoque implements Serializable{
 		this.empresa = empresa;
 	}
 	
-	public Integer getQuantidade() {
-		return quantidade;
+
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public Set<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Item> items) {
+		this.items = items;
 	}
 
 	@Override
 	public String toString() {
-		return "Estoque [id=" + id + ", idProduto=" + idProduto
-				+ ", quantidade=" + quantidade + ", empresa=" + empresa
-				+ ", produto=" + produto + "]";
+		return "Estoque [id=" + id + ", descricao=" + descricao + ", empresa="
+				+ empresa + ", dataAtualizacao=" + dataAtualizacao + ", items="
+				+ items + "]";
 	}
+
+	
 }

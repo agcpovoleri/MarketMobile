@@ -40,7 +40,7 @@ public class Categoria implements Serializable{
 	@JoinColumn(name = "id_parent")
     private Categoria parent;
 	
-	@OneToMany(mappedBy="parent")
+	@OneToMany(mappedBy="parent", fetch = FetchType.LAZY)
     private Set<Categoria> subcategorias;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})

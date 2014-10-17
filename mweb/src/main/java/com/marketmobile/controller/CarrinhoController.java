@@ -36,9 +36,6 @@ public class CarrinhoController {
 
 		logger.info("Controller success! Param: [idCategory]: ");
 
-		model.addAttribute("teste", new Date());
-		model.addAttribute(new FormUsuario());
-		
 		return "/content/carrinho/cart";
 	}
 	
